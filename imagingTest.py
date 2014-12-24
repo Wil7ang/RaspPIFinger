@@ -18,7 +18,7 @@ columnNumberForPipe = 15
 while(True):
     ret,frame = camera.read()
     # print frame[15][150]
-    for x in range(frame.shape[0],0,-1):
+    for x in range(280,0,-1):
         if(not inRange(frame[columnNumberForPipe][x][0], 85, 62) and \
            not inRange(frame[columnNumberForPipe][x][1],181,169) and \
            not inRange(frame[columnNumberForPipe][x][2],179,162)):
