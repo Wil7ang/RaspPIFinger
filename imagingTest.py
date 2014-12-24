@@ -12,10 +12,10 @@ cv2.namedWindow('Frame')
 
 while(True):
 	ret,frame = camera.read()
-	print frame[200][20]
+	print frame[200][15]
 	#for x in range(frame.shape[0],0,-1):
 		#print frame[x]
-	cv2.circle(frame,(200,20),2,(255,255,255,255),2)
+	cv2.circle(frame,(200,15),2,(255,255,255,255),2)
 
 	cv2.imshow('Frame',frame)
 
