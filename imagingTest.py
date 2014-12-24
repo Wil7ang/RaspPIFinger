@@ -22,7 +22,7 @@ while(True):
         if(not inRange(frame[columnNumberForPipe][x][0], 85, 62) and \
            not inRange(frame[columnNumberForPipe][x][1],181,169) and \
            not inRange(frame[columnNumberForPipe][x][2],179,162)):
-            cv2.circle(frame,(x,15),(0,0,255,255),2,2)
+            cv2.circle(frame,(x,15),2,(0,0,255,255),2)
             break            
 
     cv2.imshow('Frame',frame)
