@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 
 def inRange(val,max,min):
-    return val < max and val < min
+    return val < max and val > min
 
 camera = cv2.VideoCapture(0)
 camera.set(3,320)
