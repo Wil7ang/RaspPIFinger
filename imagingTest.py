@@ -17,7 +17,7 @@ rowForPipe = 97
 
 while(True):
     ret,frame = camera.read()
-    print frame[60][97]
+    # print frame[60][97]
     for y in range(20,200):
         if(not inRange(frame[y][rowForPipe][0], 60, 40) and \
            not inRange(frame[y][rowForPipe][1],170,150) and \
