@@ -13,18 +13,17 @@ camera.set(4,240)
 
 cv2.namedWindow('Frame')
 
-rowForPipe = 97
+columnNumberForPipe = 15
 
 while(True):
     ret,frame = camera.read()
-    # print frame[60][97]
-    for y in range(20,200):
-        if(not inRange(frame[y][rowForPipe][0], 60, 40) and \
-           not inRange(frame[y][rowForPipe][1],170,150) and \
-           not inRange(frame[y][rowForPipe][2],150,120)):
-            cv2.circle(frame,(rowForPipe,y),2,(0,0,255,255),2)
-            break    
-    #cv2.circle(frame,(rowForPipe,20),2,(0,0,255,255),2)        
+    # print frame[15][150]
+    for x in range(180,0,-1):
+        if(not inRange(frame[columnNumberForPipe][x][0], 80, 60) and \
+           not inRange(frame[columnNumberForPipe][x][1],170,150) and \
+           not inRange(frame[columnNumberForPipe][x][2],170,150)):
+            cv2.circle(frame,(x,15),2,(0,0,255,255),2)
+            break            
 
     cv2.imshow('Frame',frame)
 
