@@ -13,7 +13,7 @@ camera.set(4,240)
 
 cv2.namedWindow('Frame')
 
-columnNumberForPipe = 15
+columnNumberForPipe = 230
 
 while(True):
     ret,frame = camera.read()
