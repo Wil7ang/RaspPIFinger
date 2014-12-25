@@ -23,6 +23,7 @@ while(True):
            not inRange(frame[columnNumberForPipe][x][1],230,190) and \
            not inRange(frame[columnNumberForPipe][x][2],230,190)):
             cv2.circle(frame,(x,columnNumberForPipe),2,(0,0,255,255),2)
+            print x
             break            
 
     cv2.imshow('Frame',frame)
