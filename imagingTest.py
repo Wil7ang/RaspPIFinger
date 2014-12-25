@@ -24,7 +24,7 @@ while(True):
     #        not inRange(frame[y][rowForPipe][2],170,150)):
     #         cv2.circle(frame,(x,15),2,(0,0,255,255),2)
     #         break    
-    cv2.circle(frame,(rowForPipe,20),2(0,0,255,255),2)        
+    cv2.circle(frame,(rowForPipe,20),2,(0,0,255,255),2)        
 
     cv2.imshow('Frame',frame)
 
