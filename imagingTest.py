@@ -17,13 +17,13 @@ columnNumberForPipe = 80
 
 while(True):
     ret,frame = camera.read()
-    print frame[columnNumberForPipe][150]
-    # for x in range(180,0,-1):
-    #     if(not inRange(frame[columnNumberForPipe][x][0], 80, 60) and \
-    #        not inRange(frame[columnNumberForPipe][x][1],170,150) and \
-    #        not inRange(frame[columnNumberForPipe][x][2],170,150)):
-    #         cv2.circle(frame,(x,columnNumberForPipe),2,(0,0,255,255),2)
-    #         break            
+    # print frame[columnNumberForPipe][150]
+    for x in range(180,0,-1):
+        if(not inRange(frame[columnNumberForPipe][x][0], 85, 60) and \
+           not inRange(frame[columnNumberForPipe][x][1],220,200) and \
+           not inRange(frame[columnNumberForPipe][x][2],210,190)):
+            cv2.circle(frame,(x,columnNumberForPipe),2,(0,0,255,255),2)
+            break            
 
     cv2.imshow('Frame',frame)
 
