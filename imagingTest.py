@@ -16,18 +16,11 @@ while(True):
     ret,frame = camera.read()
     frame = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
 
-    args = np.argsort(frame[columnNumberForPipe][90:220])
+    args = np.argsort(frame[columnNumberForPipe][90:220])[0:10]
+    args = np.sort(args)
+    args = np.fliplr(args)
 
-    theArg = args[0]
-    prevA = args[0]
-    for a in args:
-        if a > prevA + 20:
-            theArg = a
-            break
-        else:
-            prevA = a
-
-    blackLoc = 90 + theArg#np.argmin(frame[columnNumberForPipe][90:220])
+    blackLoc = 90 + args[0]#np.argmin(frame[columnNumberForPipe][90:220])
     cv2.circle(frame,(blackLoc,columnNumberForPipe),2,(0,0,255,255),2)
 
     cv2.imshow('Frame',frame)
