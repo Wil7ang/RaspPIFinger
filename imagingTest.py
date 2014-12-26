@@ -12,12 +12,17 @@ cv2.namedWindow('Frame')
 
 columnNumberForPipe = 80
 
+bird_col = 160
+
 while(True):
     ret,frame = camera.read()
     frame = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
 
     blackLoc = 80 + np.argmin(frame[columnNumberForPipe][80:220])
     cv2.circle(frame,(blackLoc,columnNumberForPipe),2,(0,0,255,255),2)
+
+    bird_loc = 90 + np.argmin(frame[bird_col][90:220])
+    cv2.circle(frame,(bird_loc, bird_col), 2, (0,255,255,255), 2)
 
     cv2.imshow('Frame',frame)
 
