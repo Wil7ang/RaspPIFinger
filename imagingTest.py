@@ -19,9 +19,9 @@ while(True):
     ret,frame = camera.read()
     # print frame[columnNumberForPipe][220]
     for x in range(220,60,-1):
-        if(inRange(frame[columnNumberForPipe][x][0],90, 0) and \
-           inRange(frame[columnNumberForPipe][x][1],90, 0) and \
-           inRange(frame[columnNumberForPipe][x][2],90, 0)):
+        if(inRange(frame[columnNumberForPipe][x][0],100, 0) and \
+           inRange(frame[columnNumberForPipe][x][1],100, 0) and \
+           inRange(frame[columnNumberForPipe][x][2],100, 0)):
             cv2.circle(frame,(x,columnNumberForPipe),2,(0,0,255,255),2)
             break
 
