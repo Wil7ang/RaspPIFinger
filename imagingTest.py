@@ -16,7 +16,7 @@ while(True):
     ret,frame = camera.read()
     frame = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
 
-    args = np.argsort(frame[columnNumberForPipe][90:220])[0:10]
+    args = np.argsort(frame[columnNumberForPipe][90:220])[0:5]
     args = np.sort(args)
     args = args[::-1]
 
