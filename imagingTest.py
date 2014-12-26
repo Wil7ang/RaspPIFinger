@@ -19,7 +19,7 @@ while(True):
     ret,frame = camera.read()
     frame = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
     #print frame[columnNumberForPipe][np.argmin(frame[columnNumberForPipe])]
-    blackLoc = 60 + np.argmin(frame[columnNumberForPipe][60:220])
+    blackLoc = 80 + np.argmin(frame[columnNumberForPipe][80:220])
     cv2.circle(frame,(blackLoc,columnNumberForPipe),2,(0,0,255,255),2)
     # print frame[columnNumberForPipe][220]
     # for x in range(220,60,-1):
