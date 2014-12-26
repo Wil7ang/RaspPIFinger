@@ -22,11 +22,10 @@ while(True):
         if(inRange(frame[columnNumberForPipe][x][0], 90, 40) and \
            inRange(frame[columnNumberForPipe][x][1],230,190) and \
            inRange(frame[columnNumberForPipe][x][2],230,190)):
-            cv2.circle(frame,(x,columnNumberForPipe),2,(0,0,255,255),2)
             continue
         else:
+            cv2.circle(frame,(x,columnNumberForPipe),2,(0,0,255,255),2)
             break
-            #cv2.circle(frame,(x,columnNumberForPipe),2,(0,0,255,255),2)
             #break            
 
     cv2.imshow('Frame',frame)
