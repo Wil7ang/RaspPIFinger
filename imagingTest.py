@@ -16,13 +16,13 @@ columnNumberForPipe = 80
 bird_col = 195
 
 bird_window = []
-
+window_length = 20
 def rolling_window(location):
     global bird_window
     bird_window.append(location)
-    if len(bird_window) > 5:
+    if len(bird_window) > window_length:
         bird_window.pop(0)
-    return sum(bird_window[-5:])/5.0
+    return sum(bird_window[-window_length:])/window_length
 
 while(True):
     ret,frame = camera.read()
