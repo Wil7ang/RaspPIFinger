@@ -17,7 +17,7 @@ columnNumberForPipe = 80
 
 while(True):
     ret,frame = camera.read()
-    cv2.cvtColor(frame,frame,cv2.CV_BGR2GRAY)
+    cv2.cvtColor(frame,frame,cv2.cv.CV_BGR2GRAY)
     # print frame[columnNumberForPipe][220]
     # for x in range(220,60,-1):
     #     if(inRange(frame[columnNumberForPipe][x][0],140, 0) and \
