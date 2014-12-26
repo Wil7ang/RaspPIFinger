@@ -10,7 +10,7 @@ camera.set(4,240)
 
 cv2.namedWindow('Frame')
 
-min_height = 50
+min_height = 20
 max_height = 220
 columnNumberForPipe = 80
 bird_col = 195
