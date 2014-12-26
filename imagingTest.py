@@ -18,7 +18,7 @@ while(True):
 
     args = np.argsort(frame[columnNumberForPipe][90:220])
 
-    blackLoc = 90 + args[2]#np.argmin(frame[columnNumberForPipe][90:220])
+    blackLoc = 90 + args[3]#np.argmin(frame[columnNumberForPipe][90:220])
     cv2.circle(frame,(blackLoc,columnNumberForPipe),2,(0,0,255,255),2)
 
     cv2.imshow('Frame',frame)
