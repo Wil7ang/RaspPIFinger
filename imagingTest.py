@@ -10,18 +10,19 @@ camera.set(4,240)
 
 cv2.namedWindow('Frame')
 
+min_height = 50
+max_height = 220
 columnNumberForPipe = 80
-
-bird_col = 160
+bird_col = 195
 
 while(True):
     ret,frame = camera.read()
     frame = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
 
-    blackLoc = 80 + np.argmin(frame[columnNumberForPipe][80:220])
+    blackLoc = 80 + np.argmin(frame[columnNumberForPipe][80:max_height])
     cv2.circle(frame,(blackLoc,columnNumberForPipe),2,(0,0,255,255),2)
 
-    bird_loc = 90 + np.argmin(frame[bird_col][90:220])
+    bird_loc = min_height + np.argmin(frame[bird_col][min_height:max_height])
     cv2.circle(frame,(bird_loc, bird_col), 2, (0,255,255,255), 2)
 
     cv2.imshow('Frame',frame)
