@@ -16,7 +16,10 @@ while(True):
     ret,frame = camera.read()
     frame = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
 
-    blackLoc = 90 + np.argmin(frame[columnNumberForPipe][90:220])
+    args = np.argsort(frame[columnNumberForPipe][90:220])
+    if not args:
+        args = [0]
+    blackLoc = 90 + args[1]#np.argmin(frame[columnNumberForPipe][90:220])
     cv2.circle(frame,(blackLoc,columnNumberForPipe),2,(0,0,255,255),2)
 
     cv2.imshow('Frame',frame)
