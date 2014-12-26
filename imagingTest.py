@@ -21,7 +21,7 @@ while(True):
     theArg = args[0]
     prevA = args[0]
     for a in args:
-        if a > prevA + 50:
+        if a > prevA + 20:
             theArg = a
             break
         else:
