@@ -19,7 +19,7 @@ while(True):
     ret,frame = camera.read()
     # print frame[columnNumberForPipe][197]
     for x in range(220,0,-1):
-        if(inRange(frame[columnNumberForPipe][x][0], 70, 40) and \
+        if(inRange(frame[columnNumberForPipe][x][0], 90, 50) and \
            inRange(frame[columnNumberForPipe][x][1],230,190) and \
            inRange(frame[columnNumberForPipe][x][2],230,190)):
             continue
