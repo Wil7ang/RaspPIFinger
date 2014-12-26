@@ -24,7 +24,7 @@ while(True):
         if a > prevA + 50:
             theArg = a
             break
-        else
+        else:
             prevA = a
 
     blackLoc = 90 + theArg#np.argmin(frame[columnNumberForPipe][90:220])
