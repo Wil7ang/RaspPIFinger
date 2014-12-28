@@ -41,7 +41,7 @@ while(True):
             catchTime = dt.datetime.now()
             seenForFrames += 1
         elif seenForFrames > 0:
-            if abs(blackLoc - lastLocation) < 5:
+            if abs(blackLoc - lastLocation) < 7:
                 seenForFrames += 1
             else:
                 seenForFrames = 0
