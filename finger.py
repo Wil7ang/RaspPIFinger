@@ -18,9 +18,9 @@ bird_col = 195
 def detect_bird(frame):
     bird_loc = min_height + np.argmin(frame[bird_col][min_height:max_height])
     cv2.circle(frame,(bird_loc, bird_col), 2, (0,255,255,255), 2)
-    print bird_loc, bird_col
 
 
+JUMP_HEIGHT = 30
 clicks = 0
 servo = PWM.Servo()
 servo.set_servo(18, 1800) # Initialize starting position for the first click.
@@ -29,7 +29,6 @@ def click():
     # Range is from 500 to 2400
     # Swing for clicking is alternating from 1200 to 1800.
     global clicks
-    print 'click'
     clicks += 1
     if clicks%2 == 0:
         servo.set_servo(18, 1200)
@@ -45,8 +44,6 @@ def main():
         detect_bird(frame)
 
         cv2.imshow('Frame',frame)
-        if clicks == 0:
-            click()
 
         if(cv2.waitKey(1) == ord('q')):
             break
