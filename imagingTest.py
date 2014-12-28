@@ -18,8 +18,12 @@ pipeArray = []
 seenForFrames = 0
 lastLocation = 0
 
+catchTime = dt.datetime.now()
+
 start = dt.datetime.now()
 end = dt.datetime.now()
+
+expectedBirdHeight = 160
 
 while(True):
     ret,frame = camera.read()
@@ -34,6 +38,7 @@ while(True):
     if (dt.datetime.now() - start).microseconds/1000 > 150:
         if(frame[columnNumberForPipe][blackLoc] < 100 and seenForFrames == 0):
             lastLocation = blackLoc
+            catchTime = dt.datetime.now()
             seenForFrames += 1
         elif seenForFrames > 0:
             if abs(blackLoc - lastLocation) < 5:
@@ -42,21 +47,24 @@ while(True):
                 seenForFrames = 0
 
         if seenForFrames >= 3:
-            pipeArray.append([lastLocation,columnNumberForPipe])
+            pipeArray.append([lastLocation,columnNumberForPipe,catchTime,False])
             seenForFrames = 0
             start = dt.datetime.now()
 
         #cv2.circle(frame,(blackLoc,columnNumberForPipe),2,(0,0,255,255),2)
         # pipeArray.append([blackLoc,columnNumberForPipe])
 
-    for index, pip in enumerate([pipe for pipe in pipeArray if pipe[1] > 240]):
+    for index, pip in enumerate([pipe for pipe in pipeArray if (dt.datetime.now() - pipe[2]).microseconds/1000 > 800]):
         pipeArray.pop(index)
 
     for pipe in pipeArray:
-        cv2.circle(frame,(pipe[0],pipe[1]),2,(0,0,255,255),2)
-        pipe[1] = pipe[1] + 4
+        if(not pipe[3] and (dt.datetime.now() - pipe[2]).microseconds/1000 > 600):
+            pipe[3] = True
+            expectedBirdHeight = pipe[0]
+            break
 
-    print len(pipeArray)
+    cv2.circle(frame,(expectedBirdHeight,195),2,(0,0,255,255),2)
+
 
     cv2.imshow('Frame',frame)
 
