@@ -16,8 +16,7 @@ columnNumberForPipe = 80
 bird_col = 195
 
 def detect_bird(frame):
-    bird_loc = min_height + np.argmin(frame[bird_col][min_height:max_height])
-    cv2.circle(frame,(bird_loc, bird_col), 2, (0,255,255,255), 2)
+    return min_height + np.argmin(frame[bird_col][min_height:max_height])
 
 
 JUMP_HEIGHT = 30
@@ -39,11 +38,11 @@ def click():
 def main():
     while(True):
         ret,frame = camera.read()
-        frame = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
+        frame = cv2.cvtColor(frame, cv2.cv.CV_BGR2GRAY)
 
         detect_bird(frame)
 
-        cv2.imshow('Frame',frame)
+        cv2.imshow('Frame', frame)
 
         if(cv2.waitKey(1) == ord('q')):
             break
