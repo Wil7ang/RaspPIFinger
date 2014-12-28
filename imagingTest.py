@@ -14,6 +14,9 @@ columnNumberForPipe = 80
 
 pipeArray = []
 
+seenForFrames = 0
+lastLocation = 0
+
 while(True):
     ret,frame = camera.read()
     frame = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
@@ -23,9 +26,20 @@ while(True):
     args = args[::-1]
 
     blackLoc = 90 + args[0]#np.argmin(frame[columnNumberForPipe][90:220])
-    if(frame[columnNumberForPipe][blackLoc] < 100):
+    if(frame[columnNumberForPipe][blackLoc] < 100 and seenForFrames == 1):
+        lastLocation = blackLoc
+    elif seenForFrames > 0:
+        if abs(blackLoc - lastLocation) < 3:
+            seenForFrames += 1
+        else
+            seenForFrames = 0
+
+    if seenForFrames >= 3:
+        pipeArray.append([lastLocation,columnNumberForPipe])
+        seenForFrames = 0
+        
         #cv2.circle(frame,(blackLoc,columnNumberForPipe),2,(0,0,255,255),2)
-        pipeArray.append([blackLoc,columnNumberForPipe])
+        # pipeArray.append([blackLoc,columnNumberForPipe])
 
     for pipe in pipeArray:
         cv2.circle(frame,(pipe[0],pipe[1]),2,(0,0,255,255),2)
