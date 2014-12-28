@@ -58,7 +58,7 @@ while(True):
         pipeArray.pop(index)
 
     for pipe in pipeArray:
-        if(not pipe[3] and (dt.datetime.now() - pipe[2]).microseconds/1000 > 600):
+        if(not pipe[3] and (dt.datetime.now() - pipe[2]).microseconds/1000 > 400):
             pipe[3] = True
             expectedBirdHeight = pipe[0]
             break
