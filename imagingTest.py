@@ -36,7 +36,7 @@ while(True):
             lastLocation = blackLoc
             seenForFrames += 1
         elif seenForFrames > 0:
-            if abs(blackLoc - lastLocation) < 3:
+            if abs(blackLoc - lastLocation) < 5:
                 seenForFrames += 1
             else:
                 seenForFrames = 0
