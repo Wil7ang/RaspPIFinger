@@ -65,7 +65,7 @@ while(True):
 
     cv2.circle(frame,(expectedBirdHeight,195),2,(0,0,255,255),2)
     cv2.line(frame,(expectedBirdHeight,0),(expectedBirdHeight,240),(0,0,0,255),2)
-    cv2.line(frame,(expectedBirdHeight-50,0),(expectedBirdHeight-50,240),(0,0,0,255),2)
+    cv2.line(frame,(expectedBirdHeight-75,0),(expectedBirdHeight-75,240),(0,0,0,255),2)
 
 
     cv2.imshow('Frame',frame)
