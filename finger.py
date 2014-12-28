@@ -1,7 +1,26 @@
+import cv2
+import numpy as np
+
 from RPIO import PWM
 
-servo = PWM.Servo()
 
+camera = cv2.VideoCapture(0)
+camera.set(3,320)
+camera.set(4,240)
+
+cv2.namedWindow('Frame')
+
+min_height = 20
+max_height = 220
+columnNumberForPipe = 80
+bird_col = 195
+
+def detect_bird(frame):
+    bird_loc = min_height + np.argmin(frame[bird_col][min_height:max_height])
+    cv2.circle(frame,(bird_loc, bird_col), 2, (0,255,255,255), 2)
+
+
+servo = PWM.Servo()
 clicks = 0
 
 def click():
@@ -13,3 +32,23 @@ def click():
         servo.set_servo(18, 1200)
     else:
         servo.set_servo(18, 1800)
+
+
+def main():
+    while(True):
+        ret,frame = camera.read()
+        frame = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
+
+        detect_bird(frame)
+
+        cv2.imshow('Frame',frame)
+
+        if(cv2.waitKey(1) == ord('q')):
+            break
+
+    camera.release()
+    cv2.destroyAllWindows()
+
+
+if __name__ == "__main__":
+    main()
