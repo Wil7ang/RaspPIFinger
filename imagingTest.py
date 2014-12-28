@@ -31,7 +31,7 @@ while(True):
 
     blackLoc = 90 + args[0]#np.argmin(frame[columnNumberForPipe][90:220])
 
-    if (dt.datetime.now() - start).milliseconds < 200:
+    if (dt.datetime.now() - start).microseconds / 1000 < 200:
         if(frame[columnNumberForPipe][blackLoc] < 100 and seenForFrames == 0):
             lastLocation = blackLoc
             seenForFrames += 1
