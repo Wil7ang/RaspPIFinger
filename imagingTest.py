@@ -26,8 +26,9 @@ while(True):
     args = args[::-1]
 
     blackLoc = 90 + args[0]#np.argmin(frame[columnNumberForPipe][90:220])
-    if(frame[columnNumberForPipe][blackLoc] < 100 and seenForFrames == 1):
+    if(frame[columnNumberForPipe][blackLoc] < 100 and seenForFrames == 0):
         lastLocation = blackLoc
+        seenForFrames += 1
     elif seenForFrames > 0:
         if abs(blackLoc - lastLocation) < 3:
             seenForFrames += 1
