@@ -56,6 +56,7 @@ while(True):
         cv2.circle(frame,(pipe[0],pipe[1]),2,(0,0,255,255),2)
         pipe[1] = pipe[1] + 4
 
+    print len(pipeArray)
 
     cv2.imshow('Frame',frame)
 
