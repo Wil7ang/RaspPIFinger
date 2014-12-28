@@ -31,13 +31,13 @@ while(True):
     elif seenForFrames > 0:
         if abs(blackLoc - lastLocation) < 3:
             seenForFrames += 1
-        else
+        else:
             seenForFrames = 0
 
     if seenForFrames >= 3:
         pipeArray.append([lastLocation,columnNumberForPipe])
         seenForFrames = 0
-        
+
         #cv2.circle(frame,(blackLoc,columnNumberForPipe),2,(0,0,255,255),2)
         # pipeArray.append([blackLoc,columnNumberForPipe])
 
