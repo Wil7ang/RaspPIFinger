@@ -49,7 +49,7 @@ while(True):
         #cv2.circle(frame,(blackLoc,columnNumberForPipe),2,(0,0,255,255),2)
         # pipeArray.append([blackLoc,columnNumberForPipe])
 
-    for index, pip in enumerate([for pipe in pipeArray if pipe[1] > 240]):
+    for index, pip in enumerate([pipe for pipe in pipeArray if pipe[1] > 240]):
         pipeArray.pop(index)
 
     for pipe in pipeArray:
