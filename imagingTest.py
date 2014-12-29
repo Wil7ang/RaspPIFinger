@@ -56,7 +56,7 @@ while(True):
     for pipe in pipeArray:
         if(not pipe[3] and (dt.datetime.now() - pipe[2]).microseconds/1000 > 400):
             pipe[3] = True
-            expectedBirdHeight = pipe[0]
+            expectedBirdHeight = pipe[0] - 20
             break
 
     cv2.circle(result,(expectedBirdHeight,195),2,(0,0,255,255),2)
