@@ -67,11 +67,11 @@ clicks = 0
 servo = PWM.Servo()
 servo.set_servo(18, 1800) # Initialize starting position for the first click.
 
-def click():
+def click(delay=100):
     # Range is from 500 to 2400
     # Swing for clicking is alternating from 1200 to 1800.
     global clicks, last_click
-    if (dt.datetime.now() - last_click).microseconds/1000 < 100:
+    if (dt.datetime.now() - last_click).microseconds/1000 < delay:
         return
 
     last_click = dt.datetime.now()
@@ -99,7 +99,7 @@ def main():
         set_target_range(grey, bird_loc, pipe_loc)
 
         if bird_loc > target_height - 20:
-            click()
+            click(100 + 100 * (1-((bird_loc-target_height-20)/(max_height-target_height-20)) ** 2))
 
         cv2.circle(frame, (target_height, 195), 2, (0, 0, 255, 255), 2)
         cv2.line(frame, (target_height, 0), (target_height, 240), (0, 0, 255, 255), 2)
