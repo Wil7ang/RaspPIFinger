@@ -79,11 +79,6 @@ def click():
 
 
 def main():
-    time.sleep(2)
-    click() #start the game
-    time.sleep(0.5)
-    click()
-
     last_click = dt.datetime.now()
 
     print "Game started"
