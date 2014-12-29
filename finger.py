@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import datetime as dt
 import time
+import itertools
 
 from RPIO import PWM
 
@@ -23,8 +24,8 @@ catch_time = dt.datetime.now()
 start_time = dt.datetime.now()
 target_height = 160
 
-def detect_bird(frame, min_height_=min_height, max_height_=max_height):
-    return min_height_ + np.argmin(frame[bird_col][min_height_:max_height_])
+def detect_bird(frame, local_min=min_height, local_max=max_height):
+    return local_min + np.argmin(frame[bird_col][local_min:local_max])
 
 
 def detect_pipe(frame):
@@ -66,26 +67,25 @@ JUMP_HEIGHT = 30
 clicks = 0
 servo = PWM.Servo()
 servo.set_servo(18, 1800) # Initialize starting position for the first click.
+toggle_click = itertools.cycle(range(2)).next
 
-def click(delay=100):
+def click(last_click, direction, delay=100):
     # Range is from 500 to 2400
     # Swing for clicking is alternating from 1200 to 1800.
-    global clicks, last_click
     if (dt.datetime.now() - last_click).microseconds/1000 < delay:
         return
 
-    last_click = dt.datetime.now()
-    clicks += 1
-    if clicks%2 == 0:
-        servo.set_servo(18, 1200)
-    else:
+    if direction:
         servo.set_servo(18, 1800)
+    else:
+        servo.set_servo(18, 1200)
+
+    return dt.datetime.now()
 
 
 def main():
     last_click = dt.datetime.now()
 
-    print "Game started"
     while(True):
         ret, frame = camera.read()
         grey = cv2.cvtColor(frame, cv2.cv.CV_BGR2GRAY)
@@ -101,7 +101,8 @@ def main():
         if bird_loc > target_height - 20:
             cv2.circle(frame, (160,120), 50, (0,255,0,255),100)
             bird_loc -= 20
-            #click(100 + 100 * (1-((bird_loc-target_height-20)/(max_height-target_height-20)) ** 2))
+            #last_click = click(last_click, toggle_click(), 100 + 100 *
+            #(1-((bird_loc-target_height-20)/(max_height-target_height-20)) ** 2))
 
         cv2.circle(frame, (target_height, 195), 2, (0, 0, 255, 255), 2)
         cv2.line(frame, (target_height, 0), (target_height, 240), (0, 0, 255, 255), 2)
