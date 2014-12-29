@@ -33,7 +33,7 @@ def detect_pipe(frame):
 
 
 def set_target_range(frame, bird_loc, pipe_loc):
-    global last_loc, target_height
+    global last_loc, target_height, start_time, catch_time, frames_seen, pipes
     if (dt.datetime.now() - start_time).microseconds/1000 > 150:
         if(grey[pipe_col][pipe_loc] < 100 and frames_seen == 0):
             last_loc = pipe_loc
