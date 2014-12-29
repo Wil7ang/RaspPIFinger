@@ -23,8 +23,9 @@ catchTime = dt.datetime.now()
 start = dt.datetime.now()
 expectedBirdHeight = 160
 
-while(True):
-    ret,frame = camera.read()
+def ProcessPipes(frame):
+    global pipeArray, seenForFrames, lastLocation, catchTime, start, expectedBirdHeight
+    
     grey = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
     result = frame
 
@@ -64,10 +65,10 @@ while(True):
     cv2.line(result,(expectedBirdHeight-75,0),(expectedBirdHeight-75,240),(0,0,255,255),2)
 
 
-    cv2.imshow('Frame',result)
+#     cv2.imshow('Frame',result)
 
-    if(cv2.waitKey(1) == ord('q')):
-        break
+#     if(cv2.waitKey(1) == ord('q')):
+#         break
 
-camera.release()
-cv2.destroyAllWindows()
+# camera.release()
+# cv2.destroyAllWindows()
