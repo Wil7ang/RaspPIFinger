@@ -81,7 +81,7 @@ def click():
 def main():
     time.sleep(2)
     click() #start the game
-    time.sleep(500)
+    time.sleep(0.5)
     click()
 
     print "Game started"
