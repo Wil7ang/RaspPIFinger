@@ -70,7 +70,11 @@ servo.set_servo(18, 1800) # Initialize starting position for the first click.
 def click():
     # Range is from 500 to 2400
     # Swing for clicking is alternating from 1200 to 1800.
-    global clicks
+    global clicks, last_click
+    if (dt.datetime.now() - last_click).microseconds/1000 < 100:
+        return
+
+    last_click = dt.datetime.now()
     clicks += 1
     if clicks%2 == 0:
         servo.set_servo(18, 1200)
@@ -94,11 +98,8 @@ def main():
 
         set_target_range(grey, bird_loc, pipe_loc)
 
-        if bird_loc > target_height-20:
-            cv2.circle(frame, (160, 120), 20, (0, 255, 0, 255), 40)
-            if (dt.datetime.now() - last_click).microseconds/1000 > 100:
-                click()
-                last_click = dt.datetime.now()
+        if bird_loc > target_height - 20:
+            click()
 
         cv2.circle(frame, (target_height, 195), 2, (0, 0, 255, 255), 2)
         cv2.line(frame, (target_height, 0), (target_height, 240), (0, 0, 255, 255), 2)
