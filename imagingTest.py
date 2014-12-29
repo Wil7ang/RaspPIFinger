@@ -21,22 +21,21 @@ lastLocation = 0
 catchTime = dt.datetime.now()
 
 start = dt.datetime.now()
-end = dt.datetime.now()
-
 expectedBirdHeight = 160
 
 while(True):
     ret,frame = camera.read()
-    frame = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
+    grey = cv2.cvtColor(frame,cv2.cv.CV_BGR2GRAY)
+    result = frame
 
-    args = np.argsort(frame[columnNumberForPipe][90:220])[0:5]
+    args = np.argsort(grey[columnNumberForPipe][90:220])[0:5]
     args = np.sort(args)
     args = args[::-1]
 
-    blackLoc = 90 + args[0]#np.argmin(frame[columnNumberForPipe][90:220])
+    blackLoc = 90 + args[0]
 
     if (dt.datetime.now() - start).microseconds/1000 > 150:
-        if(frame[columnNumberForPipe][blackLoc] < 100 and seenForFrames == 0):
+        if(grey[columnNumberForPipe][blackLoc] < 100 and seenForFrames == 0):
             lastLocation = blackLoc
             catchTime = dt.datetime.now()
             seenForFrames += 1
@@ -51,9 +50,6 @@ while(True):
             seenForFrames = 0
             start = dt.datetime.now()
 
-        #cv2.circle(frame,(blackLoc,columnNumberForPipe),2,(0,0,255,255),2)
-        # pipeArray.append([blackLoc,columnNumberForPipe])
-
     for index, pip in enumerate([pipe for pipe in pipeArray if (dt.datetime.now() - pipe[2]).microseconds/1000 > 800]):
         pipeArray.pop(index)
 
@@ -63,12 +59,12 @@ while(True):
             expectedBirdHeight = pipe[0]
             break
 
-    cv2.circle(frame,(expectedBirdHeight,195),2,(0,0,255,255),2)
-    cv2.line(frame,(expectedBirdHeight,0),(expectedBirdHeight,240),(0,0,0,255),2)
-    cv2.line(frame,(expectedBirdHeight-75,0),(expectedBirdHeight-75,240),(0,0,0,255),2)
+    cv2.circle(result,(expectedBirdHeight,195),2,(0,0,255,255),2)
+    cv2.line(result,(expectedBirdHeight,0),(expectedBirdHeight,240),(0,0,255,255),2)
+    cv2.line(result,(expectedBirdHeight-75,0),(expectedBirdHeight-75,240),(0,0,255,255),2)
 
 
-    cv2.imshow('Frame',frame)
+    cv2.imshow('Frame',result)
 
     if(cv2.waitKey(1) == ord('q')):
         break
