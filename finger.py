@@ -79,7 +79,7 @@ def click():
 
 
 def main():
-    time.sleep(2000)
+    time.sleep(2)
     click() #start the game
     print "Game started"
     while(True):
