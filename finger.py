@@ -14,7 +14,7 @@ cv2.namedWindow('Frame')
 
 min_height = 20
 max_height = 220
-pipe_col = 83
+pipe_col = 86
 bird_col = 195
 pipes = []
 frames_seen = 0
@@ -81,6 +81,9 @@ def click():
 def main():
     time.sleep(2)
     click() #start the game
+    time.sleep(500)
+    click()
+
     print "Game started"
     while(True):
         ret, frame = camera.read()
