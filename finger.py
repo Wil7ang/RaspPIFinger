@@ -81,7 +81,7 @@ def click():
 def main():
     time.sleep(2000)
     click() #start the game
-
+    print "Game started"
     while(True):
         ret, frame = camera.read()
         grey = cv2.cvtColor(frame, cv2.cv.CV_BGR2GRAY)
