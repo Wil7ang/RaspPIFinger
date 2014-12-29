@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import datetime as dt
+import time
 
 from RPIO import PWM
 
@@ -78,6 +79,9 @@ def click():
 
 
 def main():
+    time.sleep(500)
+    click() #start the game
+
     while(True):
         ret, frame = camera.read()
         grey = cv2.cvtColor(frame, cv2.cv.CV_BGR2GRAY)
@@ -89,6 +93,9 @@ def main():
         pipe_loc = detect_pipe(grey)
 
         set_target_range(grey, bird_loc, pipe_loc)
+
+        if bird_loc > target_height-20:
+            print "click!"
 
         cv2.circle(frame, (target_height, 195), 2, (0, 0, 255, 255), 2)
         cv2.line(frame, (target_height, 0), (target_height, 240), (0, 0, 255, 255), 2)
