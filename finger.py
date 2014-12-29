@@ -84,6 +84,8 @@ def main():
     time.sleep(0.5)
     click()
 
+    last_click = dt.datetime.now()
+
     print "Game started"
     while(True):
         ret, frame = camera.read()
@@ -99,7 +101,9 @@ def main():
 
         if bird_loc > target_height-20:
             cv2.circle(frame, (160, 120), 20, (0, 255, 0, 255), 40)
-            click()
+            if (dt.datetime.now() - last_click).microseconds/1000 > 100:
+                click()
+                last_click = dt.datetime.now()
 
         cv2.circle(frame, (target_height, 195), 2, (0, 0, 255, 255), 2)
         cv2.line(frame, (target_height, 0), (target_height, 240), (0, 0, 255, 255), 2)
