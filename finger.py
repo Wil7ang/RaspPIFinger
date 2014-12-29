@@ -13,7 +13,7 @@ cv2.namedWindow('Frame')
 
 min_height = 20
 max_height = 220
-pipe_col = 80
+pipe_col = 83
 bird_col = 195
 pipes = []
 frames_seen = 0
