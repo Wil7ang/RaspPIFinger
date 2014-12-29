@@ -83,6 +83,9 @@ def main():
         grey = cv2.cvtColor(frame, cv2.cv.CV_BGR2GRAY)
 
         bird_loc = detect_bird(grey)
+
+        cv2.circle(frame, (bird_loc, bird_col), 2, (0, 0, 255, 255), 2)
+
         pipe_loc = detect_pipe(grey)
 
         set_target_range(grey, bird_loc, pipe_loc)
