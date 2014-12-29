@@ -96,7 +96,7 @@ def main():
 
         if bird_loc > target_height-20:
             cv2.circle(frame, (160, 120), 20, (0, 255, 0, 255), 40)
-            if (dt.datetime.now() - last_click).microseconds/1000 > 150:
+            if (dt.datetime.now() - last_click).microseconds/1000 > 100:
                 click()
                 last_click = dt.datetime.now()
 
