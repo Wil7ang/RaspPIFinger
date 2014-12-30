@@ -23,6 +23,7 @@ last_loc = 0
 catch_time = dt.datetime.now()
 start_time = dt.datetime.now()
 target_height = 160
+target_center = 30
 
 def detect_bird(frame, local_min=min_height, local_max=max_height):
     return local_min + np.argmin(frame[bird_col][local_min:local_max])
@@ -92,7 +93,7 @@ def main():
         ret, frame = camera.read()
         grey = cv2.cvtColor(frame, cv2.cv.CV_BGR2GRAY)
 
-        bird_loc = detect_bird(grey,min_height_=target_height-75,max_height_=target_height)
+        bird_loc = detect_bird(grey, local_min=target_height-75, local_max=target_height)
 
         cv2.circle(frame, (bird_loc, bird_col), 2, (0, 0, 255, 255), 2)
 
@@ -100,11 +101,10 @@ def main():
 
         set_target_range(grey, pipe_loc)
 
-        if bird_loc > target_height - 20:
-            cv2.circle(frame, (160,120), 50, (0,255,0,255),100)
-            bird_loc -= 20
-            #last_click = click(last_click, toggle_click(), 100 + 100 *
-            #(1-((bird_loc-target_height-20)/(max_height-target_height-20)) ** 2))
+        if bird_loc > target_height - target_center:
+            # cv2.circle(frame, (160,120), 50, (0,255,0,255), 100)
+            last_click = click(last_click, toggle_click(), 100 + 100 *
+                               (1-((bird_loc-target_height-target_center)/(max_height-target_height-target_center)) ** 2))
 
         cv2.circle(frame, (target_height, 195), 2, (0, 0, 255, 255), 2)
         cv2.line(frame, (target_height, 0), (target_height, 240), (0, 0, 255, 255), 2)
