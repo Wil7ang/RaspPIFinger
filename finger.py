@@ -99,7 +99,8 @@ def main():
         set_target_range(grey, bird_loc, pipe_loc)
 
         if bird_loc > target_height - 20:
-            click(100 + 100 * (1-((bird_loc-target_height-20)/(max_height-target_height-20)) ** 2))
+            cv2.circle(frame, (160,120), 50, (0,255,0,255),100)
+            #click(100 + 100 * (1-((bird_loc-target_height-20)/(max_height-target_height-20)) ** 2))
 
         cv2.circle(frame, (target_height, 195), 2, (0, 0, 255, 255), 2)
         cv2.line(frame, (target_height, 0), (target_height, 240), (0, 0, 255, 255), 2)
