@@ -77,7 +77,7 @@ def click(direction, delay=100):
     # Range is from 500 to 2400
     # Swing for clicking is alternating from 1200 to 1800.
     global last_click
-    if (dt.datetime.now() - last_click).total_seconds*1000 < delay:
+    if (dt.datetime.now() - last_click).total_seconds()*1000 < delay:
         return
 
     if direction:
