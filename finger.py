@@ -37,7 +37,7 @@ def detect_pipe(frame):
 
 def set_target_range(frame, pipe_loc):
     global last_loc, target_height, start_time, catch_time, frames_seen, pipes
-    if (dt.datetime.now() - start_time).microseconds/1000 > 150:
+    if (dt.datetime.now() - start_time).total_seconds()*1000 > 150:
         if(frame[pipe_col][pipe_loc] < 100 and frames_seen == 0):
             last_loc = pipe_loc
             catch_time = dt.datetime.now()
@@ -55,12 +55,12 @@ def set_target_range(frame, pipe_loc):
 
     # Remove offscreen pipes
     for index, pip in enumerate([pipe for pipe in pipes if
-                                 (dt.datetime.now() - pipe[2]).microseconds/1000 > 800]):
+                                 (dt.datetime.now() - pipe[2]).total_seconds()*1000 > 800]):
         pipes.pop(index)
 
     # Check against pipes on screen.
     for pipe in pipes:
-        if(not pipe[3] and (dt.datetime.now() - pipe[2]).microseconds/1000 > 400):
+        if(not pipe[3] and (dt.datetime.now() - pipe[2]).total_seconds()*1000 > 400):
             pipe[3] = True
             target_height = pipe[0] - 15
             break
@@ -77,7 +77,7 @@ def click(direction, delay=100):
     # Range is from 500 to 2400
     # Swing for clicking is alternating from 1200 to 1800.
     global last_click
-    if (dt.datetime.now() - last_click).microseconds/1000 < delay:
+    if (dt.datetime.now() - last_click).total_seconds*1000 < delay:
         return
 
     if direction:
@@ -104,7 +104,7 @@ def main():
 
         if bird_loc > target_height - target_center:
             # cv2.circle(frame, (160,120), 50, (0,255,0,255), 100)
-            click(toggle_click(), 100 + 100 * (1-((bird_loc-target_height-target_center) /
+            click(toggle_click(), 200 + 100 * (1-((bird_loc-target_height-target_center) /
                                    (max_height-target_height-target_center)) ** 2))
 
         cv2.circle(frame, (target_height, 195), 2, (0, 0, 255, 255), 2)
