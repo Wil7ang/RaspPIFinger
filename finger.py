@@ -34,7 +34,7 @@ def detect_pipe(frame):
     return 90 + args[0]
 
 
-def set_target_range(frame, bird_loc, pipe_loc):
+def set_target_range(frame, pipe_loc):
     global last_loc, target_height, start_time, catch_time, frames_seen, pipes
     if (dt.datetime.now() - start_time).microseconds/1000 > 150:
         if(frame[pipe_col][pipe_loc] < 100 and frames_seen == 0):
@@ -52,10 +52,12 @@ def set_target_range(frame, bird_loc, pipe_loc):
             frames_seen = 0
             start_time = dt.datetime.now()
 
+    # Remove offscreen pipes
     for index, pip in enumerate([pipe for pipe in pipes if
                                  (dt.datetime.now() - pipe[2]).microseconds/1000 > 800]):
         pipes.pop(index)
 
+    # Check against pipes on screen.
     for pipe in pipes:
         if(not pipe[3] and (dt.datetime.now() - pipe[2]).microseconds/1000 > 400):
             pipe[3] = True
@@ -96,7 +98,7 @@ def main():
 
         pipe_loc = detect_pipe(grey)
 
-        set_target_range(grey, bird_loc, pipe_loc)
+        set_target_range(grey, pipe_loc)
 
         if bird_loc > target_height - 20:
             cv2.circle(frame, (160,120), 50, (0,255,0,255),100)
