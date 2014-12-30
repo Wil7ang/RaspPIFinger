@@ -23,8 +23,8 @@ catch_time = dt.datetime.now()
 start_time = dt.datetime.now()
 target_height = 160
 
-def detect_bird(frame):
-    return min_height + np.argmin(frame[bird_col][min_height:max_height])
+def detect_bird(frame, min_height_=min_height, max_height_=max_height):
+    return min_height_ + np.argmin(frame[bird_col][min_height_:max_height_])
 
 
 def detect_pipe(frame):
@@ -90,7 +90,7 @@ def main():
         ret, frame = camera.read()
         grey = cv2.cvtColor(frame, cv2.cv.CV_BGR2GRAY)
 
-        bird_loc = detect_bird(grey)
+        bird_loc = detect_bird(grey,min_height_=target_height-75,max_height_=target_height)
 
         cv2.circle(frame, (bird_loc, bird_col), 2, (0, 0, 255, 255), 2)
 
@@ -100,6 +100,7 @@ def main():
 
         if bird_loc > target_height - 20:
             cv2.circle(frame, (160,120), 50, (0,255,0,255),100)
+            bird_loc -= 20
             #click(100 + 100 * (1-((bird_loc-target_height-20)/(max_height-target_height-20)) ** 2))
 
         cv2.circle(frame, (target_height, 195), 2, (0, 0, 255, 255), 2)
