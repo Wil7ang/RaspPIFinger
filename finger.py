@@ -106,8 +106,8 @@ def main():
 
         if bird_loc > target_height - target_center:
             # cv2.circle(frame, (160,120), 50, (0,255,0,255), 100)
-            click(toggle_click(), 200 + 100 * ((1-(abs(bird_loc-target_height-target_center) /
-                                   (max_height-target_height-target_center))) ** 2))
+            click(toggle_click(), 200 + 100 * (1 - (abs(bird_loc - target_height - target_center) /
+                                                    (max_height - target_height - target_center))) ** 2)
 
         cv2.circle(frame, (target_height, 195), 2, (0, 0, 255, 255), 2)
         cv2.line(frame, (target_height, 0), (target_height, 240), (0, 0, 255, 255), 2)
