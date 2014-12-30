@@ -81,10 +81,11 @@ def click(direction, delay=300):
         print (dt.datetime.now() - last_click).total_seconds()
         return
 
-    if direction:
-        servo.set_servo(18, 1800)
-    else:
-        servo.set_servo(18, 1200)
+    # if direction:
+    #     servo.set_servo(18, 1800)
+    # else:
+    #     servo.set_servo(18, 1200)
+    print "click"
     last_click = dt.datetime.now()
 
 
