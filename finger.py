@@ -73,11 +73,12 @@ servo.set_servo(18, 1800) # Initialize starting position for the first click.
 last_click = dt.datetime.now()
 toggle_click = itertools.cycle(range(2)).next
 
-def click(direction, delay=100):
+def click(direction, delay=300):
     # Range is from 500 to 2400
     # Swing for clicking is alternating from 1200 to 1800.
     global last_click
     if (dt.datetime.now() - last_click).total_seconds()*1000 < delay:
+        print (dt.datetime.now() - last_click).total_seconds()
         return
 
     if direction:
