@@ -68,6 +68,7 @@ def set_target_range(frame, pipe_loc):
 
 JUMP_HEIGHT = 30
 clicks = 0
+PWM.set_loglevel(PWM.LOG_LEVEL_ERROR)
 servo = PWM.Servo()
 servo.set_servo(18, 1800) # Initialize starting position for the first click.
 last_click = dt.datetime.now()
@@ -84,6 +85,7 @@ def click(direction, delay=300):
         servo.set_servo(18, 1800)
     else:
         servo.set_servo(18, 1200)
+    cv2.circle(frame, (160,120), 50, (0,255,0,255), 100)
     last_click = dt.datetime.now()
 
 
@@ -103,8 +105,7 @@ def main():
         set_target_range(grey, pipe_loc)
 
         if bird_loc > target_height - target_center:
-            # cv2.circle(frame, (160,120), 50, (0,255,0,255), 100)
-            click(toggle_click(), 200 + 100 * (1 - (abs(bird_loc - target_height - target_center) /
+            click(toggle_click(), 100 + 100 * (1 - (abs(bird_loc - target_height - target_center) /
                                                     float(abs(
                                                         max_height - target_height - target_center)))) ** 2)
 
