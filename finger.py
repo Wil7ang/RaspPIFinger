@@ -62,19 +62,19 @@ def set_target_range(frame, pipe_loc):
     for pipe in pipes:
         if(not pipe[3] and (dt.datetime.now() - pipe[2]).total_seconds()*1000 > 400):
             pipe[3] = True
-            #target_height = pipe[0] - 15
+            target_height = pipe[0] - 15
             break
 
 
 JUMP_HEIGHT = 30
 clicks = 0
-PWM.set_loglevel(PWM.LOG_LEVEL_ERROR)
+PWM.set_loglevel(PWM.LOG_LEVEL_ERRORS)
 servo = PWM.Servo()
 servo.set_servo(18, 1800) # Initialize starting position for the first click.
 last_click = dt.datetime.now()
 toggle_click = itertools.cycle(range(2)).next
 
-def click(direction, delay=300):
+def click(frame, direction, delay=300):
     # Range is from 500 to 2400
     # Swing for clicking is alternating from 1200 to 1800.
     global last_click
@@ -105,7 +105,7 @@ def main():
         set_target_range(grey, pipe_loc)
 
         if bird_loc > target_height - target_center:
-            click(toggle_click(), 100 + 100 * (1 - (abs(bird_loc - target_height - target_center) /
+            click(frame, toggle_click(), 100 + 100 * (1 - (abs(bird_loc - target_height - target_center) /
                                                     float(abs(
                                                         max_height - target_height - target_center)))) ** 2)
 
