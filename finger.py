@@ -71,22 +71,20 @@ clicks = 0
 PWM.set_loglevel(PWM.LOG_LEVEL_ERRORS)
 servo = PWM.Servo()
 servo.set_servo(18, 1800) # Initialize starting position for the first click.
-last_click = dt.datetime.now()
 toggle_click = itertools.cycle(range(2)).next
 
-def click(frame, direction, delay=300):
+def click(frame, last_click, direction, delay=300):
     # Range is from 500 to 2400
     # Swing for clicking is alternating from 1200 to 1800.
-    global last_click
     if (dt.datetime.now() - last_click).total_seconds()*1000 < delay:
-        return
+        return last_click
 
     if direction:
         servo.set_servo(18, 1800)
     else:
         servo.set_servo(18, 1200)
     cv2.circle(frame, (160,120), 50, (0,255,0,255), 100)
-    last_click = dt.datetime.now()
+    return dt.datetime.now()
 
 
 def main():
@@ -105,7 +103,7 @@ def main():
         set_target_range(grey, pipe_loc)
 
         if bird_loc > target_height - target_center:
-            click(frame, toggle_click(), 100 + 100 * (1 - (abs(bird_loc - target_height - target_center) /
+            last_click = click(frame, last_click, toggle_click(), 100 + 100 * (1 - (abs(bird_loc - target_height - target_center) /
                                                     float(abs(
                                                         max_height - target_height - target_center)))) ** 2)
 
