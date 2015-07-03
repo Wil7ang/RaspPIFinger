@@ -5,10 +5,7 @@ python ./object_finder.py
 
 Notes:
 
--the other stuff is the toy examples. May be buggy, was messing with them.
--To read the output of object_finder.py, left image is the quality of matches.
-brighter = better match
--Currently each search for object takes ~.5 s, can still heavily improve it
-by not searching whole image. On todo list
-
+-takes ~4ms/image, ran tests, look at method run_tests() for details
+-could make it slightly faster, read comments in find_pipes()
+-currently only draws boxes, eventually will return tuple(s) with locations
 

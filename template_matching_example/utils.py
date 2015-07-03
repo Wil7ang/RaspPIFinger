@@ -60,3 +60,27 @@ def find_object(img, background):
 
     return res, min_val, max_val, top_left, bottom_right
 
+# handles invalid indices
+def crop(img, x_min, x_max, y_min, y_max):
+    img_rows, img_cols = img.shape
+
+    y_min = max(0, y_min)
+    y_max = min(img_rows - 1, y_max)
+    x_min = max(0, x_min)
+    x_max = min(img_cols - 1, x_max)
+
+    return img[y_min: y_max, x_min: x_max]
+
+def shift(point, shift):
+    return point[0] + shift[0], point[1] + shift[1]
+
+
+
+
+
+
+
+
+
+
+
