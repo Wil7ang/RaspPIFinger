@@ -3,6 +3,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
+import time
 
 #commented stuff is for displaying data
 def apply_transform(template, sample, (pt1,pt2,pt3,pt4)):
@@ -10,6 +11,7 @@ def apply_transform(template, sample, (pt1,pt2,pt3,pt4)):
     x2, y2 = pt2
     x3, y3 = pt3
     x4, y4 = pt4    
+    
     '''
     template_copy = template.copy()
     sample_copy = sample.copy()
@@ -18,7 +20,8 @@ def apply_transform(template, sample, (pt1,pt2,pt3,pt4)):
     plt.subplot(121)
     plt.imshow(template, cmap='gray')
 
-    cv2.rectangle(sample, (x3, y3), (x4, y4), (0,0,0), 2)
+    print x3,y3,x4,y4
+    cv2.rectangle(sample, (x3, y3), (x4, y4), (0,0,0), 1)
     plt.subplot(122)
     plt.imshow(sample, cmap='gray')
     plt.suptitle('boxes I used for the template matching')
@@ -35,7 +38,7 @@ def apply_transform(template, sample, (pt1,pt2,pt3,pt4)):
     img = cv2.warpAffine(template, img_affine, (cols, rows))
     '''
     plt.subplot(121)
-    plt.imshow(bird, cmap='gray')
+    plt.imshow(img, cmap='gray')
     plt.suptitle('result')
     plt.show()
     
@@ -45,17 +48,14 @@ def apply_transform(template, sample, (pt1,pt2,pt3,pt4)):
 
 
 def find_object(img, background):
-    method = cv2.TM_CCOEFF
+    method = cv2.TM_CCOEFF_NORMED
 
     res = cv2.matchTemplate(img, background, method)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 
     h, w = img.shape
 
-    if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
-        top_left = min_loc
-    else:
-        top_left = max_loc
+    top_left = max_loc
     bottom_right = (top_left[0] + w, top_left[1] + h)
 
     return res, min_val, max_val, top_left, bottom_right
@@ -74,8 +74,25 @@ def crop(img, x_min, x_max, y_min, y_max):
 def shift(point, shift):
     return point[0] + shift[0], point[1] + shift[1]
 
+def scale(point, factor):
+    return int(1.0 * point[0] * factor), int(1.0 * point[1] * factor)
 
+# does all of the matlibplt stuff
+def show(img):
+    t0 = time.time()
+    plt.subplot(111)
+    plt.imshow(img, cmap = 'gray')
+    print 'display took: {}ms'.format((time.time() - t0) * 1000)
+    plt.show()
+    plt.close()
 
+def show2(img1, img2):
+    plt.subplot(121)
+    plt.imshow(img1, cmap='gray')
+    plt.subplot(122)
+    plt.imshow(img2, cmap='gray')
+    plt.show()
+    plt.close()
 
 
 

@@ -6,18 +6,19 @@ from matplotlib import pyplot as plt
 
 images = []
 for i in range(4):
-	img = cv2.imread('screenshot{}.png'.format(i))
-	images.append(img)
+    img = cv2.imread('screenshot{}.png'.format(i))
+    img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    images.append(img)
 
 for image in images:
-	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-	edges = cv2.Canny(gray, 100, 200, apertureSize=3)
+	edges = cv2.Canny(image, 100, 200, apertureSize=3)
 
 	plt.subplot(121)
-	plt.imshow(gray, cmap='gray')
+	plt.imshow(image, cmap='gray')
 	plt.subplot(122)
 	plt.imshow(edges, cmap='gray')
 	plt.show()
+	plt.close()
 
 #corner detection. Doesn't really work...
 #designed for different sorts of corners. Read wiki
@@ -26,7 +27,7 @@ for image in images:
 	break
 	plt.subplot(121)
 
-	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+	gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
 	gray = np.float32(gray)
 
 	plt.imshow(gray, cmap='gray')
